@@ -1,5 +1,4 @@
 import "./App.css";
-import { SERVER_URL } from "./constants";
 import React, { useState, useEffect } from "react";
 import DoLogin from "./login.js";
 import {
@@ -12,6 +11,7 @@ import {
   useHistory,
 } from "react-router-dom";
 import loginFacade from "./apiFacade";
+import duck from "./images/duck.png";
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -39,8 +39,11 @@ function App() {
         <Route exact path="/externData">
           <ExternData />
         </Route>
-        <Route exact path="/quickQuote">
+        <Route exact path="/joke">
           <Manyjokes />
+        </Route>
+        <Route exact path="/educational">
+          <Educational />
         </Route>
         <Route>
           <NoMatch />
@@ -58,11 +61,11 @@ function Header({ isLoggedIn, loginMsg }) {
           Home
         </NavLink>
       </li>
-      <li>
+      {/*       <li>
         <NavLink activeClassName="active" to="/externData">
           Extern API
         </NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink activeClassName="active" to="/joke">
           Jokes
@@ -73,6 +76,11 @@ function Header({ isLoggedIn, loginMsg }) {
           {loginMsg}
         </NavLink>
       </li>
+      <li>
+        <NavLink activeClassName="active" to="/educational">
+          Educational environment
+        </NavLink>
+      </li>
     </ul>
   );
 }
@@ -80,29 +88,27 @@ function Header({ isLoggedIn, loginMsg }) {
 function Home() {
   return (
     <div>
-      <h2>Home</h2>
-      <h3>How to use:</h3>
-      <ul>
-        <li>
-          Login as User or Admin using username and password made in backend
-          process
-        </li>
-        <li>User and Admin use different endpoints for login</li>
-        <li>
-          <b>Extern API</b> use five different extern REST API endpoints through
-          backend.
-        </li>
-        <li>
-          Make sure to have backend running locally or delpoyet, and adjust
-          link(s) in <b>settings.js</b>
-        </li>
-        <li>
-          Link to backend startcode:{" "}
-          <a href="https://github.com/sslhansen/3semCA3backend">
-            Backend Startcode
-          </a>{" "}
-        </li>
-      </ul>
+      <h1>Home</h1>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <h3>1/5 2021</h3>
+    </div>
+  );
+}
+
+function Educational() {
+  return (
+    <div>
+      <h1>Here for no reason</h1>
+      <p>What the </p>
+      <h1>
+        <div>
+          <img alt="" src={duck} />
+        </div>
+      </h1>
     </div>
   );
 }
@@ -154,7 +160,7 @@ function ExternData() {
       <p>Reference: https://programming-jokes-api.herokuapp.com/jokes/random</p>
     </div>
   ) : (
-    "Loading..."
+    "Loading... Ooops, seems like there's a fetch I can't find"
   );
 
   return (
@@ -184,14 +190,21 @@ function Manyjokes() {
   }, []);
   const joke = data ? (
     <div>
-      <p>Joke</p>
+      <h1>
+        <p>Joke</p>
+      </h1>
       <em>{data.value}</em>
-      <p>Reference: https://official-joke-api.appspot.com/jokes/random</p>
+      <h5>Reference: https://api.chucknorris.io/jokes/random</h5>
     </div>
   ) : (
     "Loading..."
   );
-  return <div>{joke}</div>;
+  return (
+    <div>
+      {" "}
+      <h3>{joke}</h3>
+    </div>
+  );
 }
 
 function NoMatch() {
@@ -205,5 +218,4 @@ function NoMatch() {
     </div>
   );
 }
-
 export default App;
